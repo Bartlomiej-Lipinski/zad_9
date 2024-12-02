@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from "react";
 import Lek from "./Lek";
-// import './lista.css';
+
 const List = () => {
     const [leki, setLeki] = useState([]);
     const [loading, setLoading] = useState(true);

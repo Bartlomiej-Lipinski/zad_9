@@ -12,7 +12,7 @@ const Form = () => {
     const [data_waznosci, setData_waznosci] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-
+//d
 
     const handleSubmit = (e) => {
         e.preventDefault();
