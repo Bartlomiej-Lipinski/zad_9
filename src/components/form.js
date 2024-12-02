@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const Form = () => {
     const [nazwa, setNazwa] = useState("");
@@ -10,12 +11,12 @@ const Form = () => {
     const [dawka, setDawka] = useState("");
     const [data_waznosci, setData_waznosci] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate();
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newLek={
+        const newLek = {
             nazwa,
             cena,
             ulotka,
@@ -24,20 +25,30 @@ const Form = () => {
             kod_produktu,
             dawka,
             data_waznosci
-        }
+        };
         setLoading(true);
         fetch("http://localhost:3001/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({newLek})
-        }).then((res)=>{
-            res.status === 200 ? console.log("Dodano lek") : console.log("Błąd dodawania leku");
-        }).then(() => {
-            setLoading(false);
-        }).catch(error => console.log(error));
-    }
+            body: JSON.stringify(newLek)
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.id) {
+                    console.log("Dodano lek:", data);
+                    navigate(`/${data.id}`);
+                } else {
+                    console.log("Błąd dodawania leku");
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log(error);
+                setLoading(false);
+            });
+    };
     return (
         <div>
             <h1>Dodaj lek</h1>
@@ -55,3 +66,4 @@ const Form = () => {
         </div>
     );
 }
+export default Form;

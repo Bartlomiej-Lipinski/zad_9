@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from "react";
 import Lek from "./Lek";
-
+// import './lista.css';
 const List = () => {
     const [leki, setLeki] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,9 +18,12 @@ const List = () => {
             <h1>Lista leków</h1>
             <ul>
                 {leki.map(lek => (
+                    <li>
                     <Lek key={lek.id} lek={lek} />
+                    </li>
                 ))}
             </ul>
         </div>
     );
 }
+export default List;
